@@ -17,7 +17,7 @@ import { useState } from "react";
   }
 
   return (
-    <div className="container p-4 card-gradient">
+    <div className="container p-4 card-gradient mt-4">
       <h1>Contact Us</h1>
       <p>Have questions or feedback? We'd love to hear from you!</p>
       <div className="col-lg-6 col-md-6">
