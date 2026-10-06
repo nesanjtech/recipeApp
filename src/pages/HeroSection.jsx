@@ -23,6 +23,7 @@ function HeroSection() {
             <div className="d-flex justify-content-start">
               <img
                 src={burger}
+                loading="lazy"
                 className="border border-danger rounded-5 shadow-lg"
                 alt=""
                 width="350px"
@@ -32,6 +33,7 @@ function HeroSection() {
               <img
                 src={pasta}
                 className="border border-danger rounded-5 shadow-lg"
+                loading="lazy"
                 alt=""
                 width="350px"
               />

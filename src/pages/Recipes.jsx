@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getRatingColor } from "../utils/rating";
 import { CardButton } from "../components/CardButton";
@@ -8,13 +8,41 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { getAllRecipes } from "../services/recipeServices";
 import SearchBar from "../components/SearchBar";
 import { filterRecipes } from "../utils/filterRecipes";
+import { useThrottle } from "../hooks/useThrottle";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [selectedMealType, setSelectedMealType] = useState("All");
-  const { loading, error, search } = useContext(RecipeContext);
+  const { loading, debounceSearch } = useContext(RecipeContext);
+  const [visibleCount, setVisibleCount] = useState(4);
 
-  const filteredRecipes = filterRecipes(recipes, search, selectedMealType);
+  const filteredRecipes = filterRecipes(
+    recipes,
+    debounceSearch,
+    selectedMealType,
+  );
+
+  const visibleRecipes = filteredRecipes.slice(0, visibleCount);
+
+  const handleScroll = useThrottle(
+      useCallback(() => {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 100
+        ) {
+          setVisibleCount((prev) => prev + 20);
+        }
+      }, []),
+    500,
+  );
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,23 +57,17 @@ const Recipes = () => {
   }, []);
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <h3>{error}</h3>;
 
   return (
     <>
       <div className="container p-4">
-        <p className="h1 p-2 mb-4 fw-bold text-danger bg-danger-subtle text-center rounded-2">
-          Recipe List
-        </p>
-        <div className="">
-          <SearchBar />
-        </div>
+        <SearchBar />
         <SelectionTabs
           selectedMealType={selectedMealType}
           setSelectedMealType={setSelectedMealType}
         />
         <div className="d-flex flex-wrap justify-content-center gap-4">
-          {filteredRecipes.map((recipe) => (
+          {visibleRecipes.map((recipe) => (
             <div
               key={recipe.id}
               className="card p-1 border border-danger bg-danger-subtle rounded-4 shadow-lg"
@@ -54,6 +76,7 @@ const Recipes = () => {
               <img
                 src={recipe.image}
                 className="card-img-top rounded-4 px-2 pt-2"
+                loading="lazy"
                 alt={recipe.name}
               />
               <div className="card-body d-flex flex-column align-items-center gap-2">

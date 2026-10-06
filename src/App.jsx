@@ -1,20 +1,24 @@
 import "./App.css";
-import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RecipeDetails from "./pages/RecipeDetails";
-import Recipes from "./pages/Recipes";
-import { Contact } from "./pages/Contact";
 import Layout from "./components/layout";
-import { CartProvider } from "./context/CartContext";
 import Cart from "./components/Cart";
+import { CartProvider } from "./context/CartContext";
 import { RecipeProvider } from "./context/RecipeContext";
+import { lazy, Suspense } from "react";
+import LoadingSpinner from "./components/LoadingSpinner";
+
+const Home = lazy(() => import("./pages/Home"))
+const RecipeDetails = lazy(() => import("./pages/RecipeDetails"))
+const Recipes = lazy(() => import("./pages/Recipes"))
+const Contact = lazy(() => import("./pages/Contact"))
 
 function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <CartProvider>
         <RecipeProvider> 
-          <Routes>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/recipes" element={<Recipes />} />
@@ -23,6 +27,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
             </Route>
           </Routes>
+          </Suspense>
         </RecipeProvider>
       </CartProvider>
     </BrowserRouter>

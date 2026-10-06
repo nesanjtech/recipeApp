@@ -1,18 +1,16 @@
 import { useState } from "react";
 
-export const Contact = () => {
+ const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Message:", message);
     alert("Thank you for contacting us! We will get back to you soon.");
-    // Reset form fields
     setName("");
     setEmail("");
     setMessage("");
@@ -74,3 +72,5 @@ export const Contact = () => {
     </div>
   )
 }
+
+export default Contact;

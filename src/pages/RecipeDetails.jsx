@@ -71,9 +71,11 @@ const RecipeDetails = () => {
         <div className="col-12 col-lg-4">
           <img
             className="rounded-5 shadow"
+            loading="lazy"
             src={getRecipe.image}
             alt={getRecipe.name}
             width="100%"
+            onLoad={loading && <LoadingSpinner />}
           />
           <div className="mt-4 d-flex justify-content-center">
           <CardButton recipe={getRecipe} />

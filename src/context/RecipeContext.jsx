@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { getRecipes } from "../services/recipeServices";
+import { useDebounce } from "../hooks/useDebounce";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const RecipeContext = createContext();
@@ -11,6 +12,8 @@ export const RecipeProvider = ({ children }) => {
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
+
+  const debounceSearch = useDebounce(search, 1000)
 
   const limit = 8;
 
@@ -41,6 +44,7 @@ export const RecipeProvider = ({ children }) => {
         limit,
         search,
         setSearch,
+        debounceSearch
       }}
     >
       {children}

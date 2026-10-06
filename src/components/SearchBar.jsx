@@ -1,13 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { RecipeContext } from "../context/RecipeContext";
-import { useDebounce } from "../hooks/useDebounce";
 
 const SearchBar = () => {
   const { search, setSearch } = useContext(RecipeContext);
-  const debounce = useDebounce(search, 500);
-  React.useEffect(() => {
-    console.log(debounce)
-  },[debounce])
   return (
     <div className="search-box d-flex gap-2 mx-auto col-12 col-lg-6">
       <input

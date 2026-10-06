@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const HomePageContent = () => {
   const [recipe, setRecipe] = useState([]);
-  const { loading, error } = useContext(RecipeContext);
+  const { loading } = useContext(RecipeContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +32,6 @@ const HomePageContent = () => {
   }, {});
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <h3>{error}</h3>;
 
   return (
     <>
@@ -42,8 +41,7 @@ const HomePageContent = () => {
             <div className="mb-4 text-danger text-center">
               <span className="h2 text-uppercase fw-bold">{mealType}</span>
             </div>
-            <div
-            className="card-home-container container d-flex gap-4 rounded-4 shadow-bottom">
+            <div className="card-home-container container d-flex gap-4 rounded-4 shadow-bottom">
               {recipe.map((recipe) => (
                 <div
                   key={recipe.id}
@@ -54,11 +52,10 @@ const HomePageContent = () => {
                   <img
                     src={recipe.image}
                     className="rounded-4"
+                    loading="lazy"
                     alt={recipe.name}
-                  >
-                  </img>
-                  <small 
-                  className="text-center text-wrap text-uppercase text-light p-2">
+                  ></img>
+                  <small className="text-center text-wrap text-uppercase text-light p-2">
                     {recipe.name}
                   </small>
                 </div>
