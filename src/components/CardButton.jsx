@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 
 export const CardButton = ({ recipe, isCartPage = false }) => {
+    const [loading, setLoading] = useState(false)
   const { cart, addToCart, decreaseQuantity } =
     useContext(CartContext);
 
@@ -10,9 +11,12 @@ export const CardButton = ({ recipe, isCartPage = false }) => {
   );
 
   const handleClick = () => {
+    setLoading(true)
     if (isInCart) {
       if (isCartPage) {
-        decreaseQuantity(recipe.id);
+        setTimeout(() => {
+            decreaseQuantity(recipe.id);
+        },500)
       }
       return;
     }
@@ -37,7 +41,7 @@ export const CardButton = ({ recipe, isCartPage = false }) => {
       onClick={handleClick}
       disabled={isInCart && !isCartPage}
     >
-      {buttonText}
+      {loading && buttonText=== "Remove" ? "Removing..." : buttonText}
     </button>
   );
 };
