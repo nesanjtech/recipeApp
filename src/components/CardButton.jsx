@@ -41,7 +41,7 @@ export const CardButton = ({ recipe, isCartPage = false }) => {
       onClick={handleClick}
       disabled={isInCart && !isCartPage}
     >
-      {loading && buttonText=== "Remove" ? "Removing..." : buttonText}
+      {loading && buttonText === "Remove" ? <small>Removing...</small> : buttonText}
     </button>
   );
 };
