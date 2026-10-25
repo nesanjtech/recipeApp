@@ -72,7 +72,7 @@ const Recipes = () => {
             visibleRecipes.map((recipe) => (
             <div
               key={recipe.id}
-              className="card p-1 border border-danger bg-danger-subtle rounded-4 shadow-lg"
+              className="card p-1 border border-secondary-subtle rounded-4 shadow-lg"
               style={{ width: "18rem" }}
             >
               <img

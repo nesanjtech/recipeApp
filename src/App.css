@@ -28,12 +28,13 @@ body{
 }
 
 .card-gradient{
- background: linear-gradient(
+ /* background: linear-gradient(
     to top,
     rgba(214, 53, 53, 0.493) 0%,
     rgba(122, 50, 50, 0.247) 40%,
     rgb(240, 234, 234) 100%
-  );
+  ); */
+  border: 1px solid rgb(189, 186, 186);
 }
 
 .gradient-overlay{
@@ -70,4 +71,3 @@ body{
   border: 2px solid #dc3545;
   outline: none;
 }
-
