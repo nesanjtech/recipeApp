@@ -9,6 +9,7 @@ import { getAllRecipes } from "../services/recipeServices";
 import SearchBar from "../components/SearchBar";
 import { filterRecipes } from "../utils/filterRecipes";
 import { useThrottle } from "../hooks/useThrottle";
+import NotFound from "../components/NotFound";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -67,7 +68,8 @@ const Recipes = () => {
           setSelectedMealType={setSelectedMealType}
         />
         <div className="d-flex flex-wrap justify-content-center gap-4">
-          {visibleRecipes.map((recipe) => (
+          {visibleRecipes.length !== 0 ? (
+            visibleRecipes.map((recipe) => (
             <div
               key={recipe.id}
               className="card p-1 border border-danger bg-danger-subtle rounded-4 shadow-lg"
@@ -105,7 +107,8 @@ const Recipes = () => {
                 </span>
               </div>
             </div>
-          ))}
+          ))
+          ) : <NotFound />}
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
 const BASEURL = "https://dummyjson.com/recipes";
+// const BASEURL = "http://localhost:5000/api/recipes";
 
 export const getRecipes = async (limit, skip = 0) => {
   const response = await fetch(`${BASEURL}?limit=${limit}&skip=${skip}`);

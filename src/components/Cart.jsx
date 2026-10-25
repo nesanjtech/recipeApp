@@ -9,24 +9,28 @@ const Cart = () => {
   return (
     <div className="container mt-2">
       <div className="d-flex flex-column mx-3">
-        <span className="h1 text-dark">Recipe Cart</span>
+        <span className="h1 text-dark">Saved Recipe</span>
         <span className="text-secondary line-spacing-1">
-          <span className="fw-bold">{cartCount}</span> {cartCount === 1 ? "item" : "items"} in your cart
+          <span className="fw-bold">{cartCount}</span>{" "}
+          {cartCount <= 1 ? "item" : "items"} Saved
         </span>
       </div>
       {cart.length === 0 ? (
         <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-          <span className="h3 text-secondary">Your cart is empty</span>
+          <span className="h3 text-secondary">No Saved Recipes</span>
         </div>
       ) : (
         cart.map((cartItem) => (
-          <div className="card mb-3 m-3 col-lg-7 rounded-5 shadow-lg" key={cartItem.id}>
+          <div
+            className="card mb-3 m-3 col-lg-7 rounded-5 shadow-lg"
+            key={cartItem.id}
+          >
             <div className="row g-2">
-                <img
-                  src={cartItem.image}
-                  className="col-lg-3 rounded-5 p-2"
-                  alt="Image"
-                />
+              <img
+                src={cartItem.image}
+                className="col-lg-3 rounded-5 p-2"
+                alt="Image"
+              />
               <div class="col-lg-8">
                 <div className="card-body d-flex justify-content-around align-items-center">
                   <div className="col-8">
@@ -45,7 +49,7 @@ const Cart = () => {
                     </span>
                   </div>
                   <div className="col-4">
-                    <CardButton recipe={cartItem} />
+                    <CardButton recipe={cartItem} isCartPage={true} />
                   </div>
                 </div>
               </div>

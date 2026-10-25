@@ -15,7 +15,7 @@ const Navbar = () => {
         </Link>
         <div className="d-flex gap-4">
           <div className="cart position-relative d-sm-none">
-          <Link to={'./cart'} className="cartIcon text-light fs-2"><i class="bi bi-cart4"></i></Link>
+          <Link to={'./cart'} className="cartIcon text-light fs-2"><i class="bi bi-save2"></i></Link>
         <span className="position-absolute top-25 mt-1 translate-middle text-dark rounded-5 badge bg-warning">{cartCount}</span>
         </div>
           <button
