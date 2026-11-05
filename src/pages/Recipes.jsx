@@ -14,7 +14,8 @@ import NotFound from "../components/NotFound";
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [selectedMealType, setSelectedMealType] = useState("All");
-  const { loading, debounceSearch } = useContext(RecipeContext);
+  const [loading, setLoading] = useState(false);
+  const { debounceSearch } = useContext(RecipeContext);
   const [visibleCount, setVisibleCount] = useState(4);
 
   const filteredRecipes = filterRecipes(
@@ -47,11 +48,14 @@ const Recipes = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
       try {
         const data = await getAllRecipes();
         setRecipes(data.recipes);
       } catch (error) {
         console.log(error, "error");
+      } finally {
+        setLoading(false)
       }
     };
     fetchData();

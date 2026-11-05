@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const useDebounce = (value, delay) => {
     const [debounce, setDebounce] = React.useState(value);
@@ -10,4 +10,4 @@ export const useDebounce = (value, delay) => {
         return () => clearInterval(timer)
     },[value, delay])
   return debounce;
-}
+};

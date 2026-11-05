@@ -71,3 +71,8 @@ body{
   border: 2px solid #dc3545;
   outline: none;
 }
+
+.btn-scroll {
+  font-size: 30px;
+  cursor: pointer;
+}
